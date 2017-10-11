@@ -1,0 +1,48 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_frame">
+
+    <ImageView
+        android:id="@+id/iv_appwidget_recipe_image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/appwidget_image_height"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/desc_recipe_image"/>
+
+    <TextView
+        android:id="@+id/tv_appwidget_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/appwidget_recipe_name"
+        android:text="@string/placeholder_recipe_name"
+        android:textSize="@dimen/titles"
+        android:textStyle="bold|italic"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/padding_list_item_S"
+        android:background="@color/appwidget_title"
+        android:layout_alignBottom="@id/iv_appwidget_recipe_image"
+        android:elevation="@dimen/appwidget_title_elevation"/>
+
+    <TextView
+        android:id="@+id/tv_appwidget_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_item_M"
+        android:paddingStart="@dimen/padding_list_item_M"
+        android:layout_below="@id/iv_appwidget_recipe_image"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/list_titles"
+        android:textStyle="bold"
+        android:text="@string/ingredients_title"/>
+
+    <ListView
+        android:id="@+id/lv_appwidget_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/padding_list_item_M"
+        android:paddingRight="@dimen/padding_list_item_M"
+        android:layout_below="@id/tv_appwidget_subtitle"
+        android:listSelector="@android:color/transparent"/>
+</RelativeLayout>

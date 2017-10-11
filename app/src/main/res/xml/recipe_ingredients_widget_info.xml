@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.example.android.bakeit.UI.Widget.RecipeIngredientsWidgetConfigureActivity"
+    android:initialKeyguardLayout="@layout/recipe_ingredients_widget"
+    android:initialLayout="@layout/recipe_ingredients_widget"
+    android:minHeight="120dp"
+    android:minWidth="120dp"
+    android:previewImage="@mipmap/ic_launcher"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="86400000"
+    android:widgetCategory="home_screen">
+</appwidget-provider>

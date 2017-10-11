@@ -1,0 +1,54 @@
+<!-- Copyright (C) 2017 John Magdalinos
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+   	http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License. -->
+
+<resources>
+    <string name="app_name">Bake It!</string>
+
+    <!-- Placeholders -->
+    <string name="placeholder_recipe_name">Test Recipe</string>
+    <string name="placeholder_step_short_description">Starting prep</string>
+    <string name="placeholder_step_description">1. Preheat the oven to 350\u00b0F. Butter a 9\" deep dish pie pan.</string>
+    <string name="placeholder_ingredient_title">Ingredients:</string>
+    <string name="placeholder_ingredient_text">Ingredient</string>
+    <string name="placeholder_step_title">Steps: </string>
+
+    <!-- Main Activity -->
+    <string name="no_internet">Oops! There are no recipes!\n
+    Please make sure there is an internet connection and try again</string>
+    <string name="button_try_again">Try again</string>
+
+    <!-- Fragment Titles -->
+    <string name="servings_title">(for 8 servings)</string>
+    <string name="ingredients_title">Ingredients:</string>
+    <string name="steps_title">Recipe Steps</string>
+    <string name="navigate_steps">Navigate Steps</string>
+    <string name="please_select_step">Please select a step</string>
+
+    <!-- Widget -->
+    <string name="appwidget_recipe_name">Recipe name</string>
+    <string name="appwidget_recipe_servings">Recipe servings</string>
+    <string name="appwidget_recipe_image">Recipe image</string>
+    <string name="appwidget_no_recipes">No recipes available</string>
+    <string name="appwidget_select_recipe">Click on a recipe to add its widget</string>
+
+    <!-- Content Descriptions -->
+    <string name="desc_video_icon">Video Icon displayed if the current step inclueds a
+        video description</string>
+    <string name="desc_recipe_image">The image of the finished recipe</string>
+    <string name="desc_next_btn">Button advancing to the recipe\'s next step</string>
+    <string name="desc_previous_btn">Button advancing to the recipe\'s previous step</string>
+    <string name="desc_expand_arrow">Button expanding and collapsing the list of
+        ingredients</string>
+    <string name="desc_app_icon">The application\'s icon</string>
+</resources>
