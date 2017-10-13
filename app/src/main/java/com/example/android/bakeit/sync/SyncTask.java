@@ -14,19 +14,19 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Sync;
+package com.example.android.bakeit.sync;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
-import com.example.android.bakeit.Utilities.DataUtilities;
-import com.example.android.bakeit.Utilities.JSONUtilities;
-import com.example.android.bakeit.Utilities.NetworkUtilities;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
+import com.example.android.bakeit.utilities.DataUtilities;
+import com.example.android.bakeit.utilities.JSONUtilities;
+import com.example.android.bakeit.utilities.NetworkUtilities;
 
 import java.util.ArrayList;
 

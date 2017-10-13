@@ -50,6 +50,19 @@
                 android:paddingStart="@dimen/padding_list_item_S"
                 android:text="@string/servings_title"/>
 
+            <TextView
+                android:id="@+id/tv_touch_to_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/list_text"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_below="@id/tv_fragment_list_title_top"
+                android:layout_toRightOf="@id/tv_fragment_list_servings_title"
+                android:paddingLeft="@dimen/padding_list_item_S"
+                android:paddingStart="@dimen/padding_list_item_S"
+                android:text="@string/touch_to_hide"/>
+
             <ImageView
                 android:id="@+id/iv_fragment_list_collapse_arrow"
                 android:layout_width="@dimen/collapsible_arrow_size"

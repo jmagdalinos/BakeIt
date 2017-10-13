@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Adapters;
+package com.example.android.bakeit.ui.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
 import com.example.android.bakeit.R;
 import com.squareup.picasso.Picasso;
 

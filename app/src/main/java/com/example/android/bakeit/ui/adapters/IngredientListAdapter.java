@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Adapters;
+package com.example.android.bakeit.ui.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -24,9 +24,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 /**
  * Custom RecyclerView Adapter that loads the RecyclerView with a list of ingredients

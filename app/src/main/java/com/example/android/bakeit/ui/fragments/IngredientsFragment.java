@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Fragments;
+package com.example.android.bakeit.ui.fragments;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
@@ -39,10 +39,10 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.Adapters.IngredientListAdapter;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.ui.adapters.IngredientListAdapter;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +59,7 @@ public class IngredientsFragment extends Fragment implements
     @BindView(R.id.tv_fragment_list_servings_title) TextView mServingsTextView;
     @BindView(R.id.rv_fragment_list_top) RecyclerView mIngredientsRecyclerView;
     @BindView(R.id.tv_fragment_list_title_top) TextView mIngredientsTextView;
+    @BindView(R.id.tv_touch_to_hide) TextView mTouchTextView;
     private IngredientListAdapter mIngredientsAdapter;
     private String mRecipeName;
     private int mIngredientsMinHeight;
@@ -134,10 +135,15 @@ public class IngredientsFragment extends Fragment implements
         String recipeServings = bundle.getString(DataUtilities.KEY_RECIPE_SERVINGS);
 
         // Set the texts in the TextViews
-        mServingsTextView.setText("(for " + recipeServings + " servings)");
+        mServingsTextView.setText("(" +
+                        getString(R.string.servings_for) + " " +
+                        recipeServings + " " +
+                getString(R.string.servings_servings) +")");
         mServingsTextView.setTypeface(font);
         mIngredientsTextView.setText(getString(R.string.ingredients_title));
         mIngredientsTextView.setTypeface(font);
+        mTouchTextView.setText(getString(R.string.touch_to_hide));
+        mTouchTextView.setTypeface(font);
 
         // Create a Linear layout manager and assign it to the recycler view
         LinearLayoutManager ingredientLayoutManager = new LinearLayoutManager(this.getContext());
@@ -214,6 +220,8 @@ public class IngredientsFragment extends Fragment implements
                 rotation + 180);
         objectAnimator.setDuration(500);
         objectAnimator.start();
+
+        mTouchTextView.setText(R.string.touch_to_show);
     }
 
     /** Collapses the CardView to the min height */
@@ -238,6 +246,8 @@ public class IngredientsFragment extends Fragment implements
                 rotation, rotation + 180);
         objectAnimator.setDuration(500);
         objectAnimator.start();
+
+        mTouchTextView.setText(R.string.touch_to_hide);
     }
 
     /** Instantiates and returns a loader querying for the recipe ingredients & steps */
@@ -270,6 +280,7 @@ public class IngredientsFragment extends Fragment implements
                 if (data != null && data.getCount() != 0) {
                     // Pass the cursor to the adapter
                     mIngredientsAdapter.swapCursor(data);
+
                 }
                 break;
             default:

@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI;
+package com.example.android.bakeit.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -26,12 +26,12 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.Step;
+import com.example.android.bakeit.data.Step;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.Fragments.IngredientsFragment;
-import com.example.android.bakeit.UI.Fragments.SingleStepFragment;
-import com.example.android.bakeit.UI.Fragments.StepsFragment;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.ui.fragments.IngredientsFragment;
+import com.example.android.bakeit.ui.fragments.SingleStepFragment;
+import com.example.android.bakeit.ui.fragments.StepsFragment;
+import com.example.android.bakeit.utilities.DataUtilities;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -52,6 +52,7 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
     private int mPosition = -1;
     private boolean mIsSavedState = false;
     private boolean mIsTwoPane;
+    private SingleStepFragment mSingleStepFragment;
 
     /** Resource ids for the two fragments */
     private static final int ID_INGREDIENTS_FRAGMENT = R.id.fl_fragment_ingredients;
@@ -94,6 +95,15 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
         textView.setText(mRecipeName);
         textView.setTypeface(mFont);
 
+        if (!mIsTwoPane) {
+            // Setup back navigation
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        // Get the support fragment manager
+        mFragmentManager = getSupportFragmentManager();
+
         // Check if this a restored instance of the Activity
         if (savedInstanceState == null) {
             // This is a new instance
@@ -104,10 +114,11 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
             mPosition = savedInstanceState.getInt(STATE_POSITION);
             mIsSavedState = true;
 
+            if (mIsTwoPane) {
+                mSingleStepFragment = (SingleStepFragment) mFragmentManager.getFragment(savedInstanceState,
+                        DataUtilities.KEY_FRAGMENT);
+            }
         }
-
-        // Get the support fragment manager
-        mFragmentManager = getSupportFragmentManager();
 
         if (mIsTwoPane) {
             createTabletLayout();
@@ -122,6 +133,12 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(STATE_STEPS, mSteps);
         outState.putInt(STATE_POSITION, mPosition);
+
+        if (mIsTwoPane) {
+            // Save the fragment instance
+            mFragmentManager.putFragment(outState, DataUtilities.KEY_FRAGMENT, mSingleStepFragment);
+        }
+
         super.onSaveInstanceState(outState);
     }
 
@@ -177,23 +194,34 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
 
     /** Setups fragments to show a single step and its video */
     private void setupStepFragment(ArrayList<Step> steps, int position) {
-        // Create a new instance of the StepDetailsFragment
-        SingleStepFragment mSingleStepFragment = new SingleStepFragment();
+        if (!mIsSavedState) {
+            // Create a new instance of the StepDetailsFragment
+            mSingleStepFragment = new SingleStepFragment();
 
-        // Create a Bundle and put inside the List of Steps and the current position
-        Bundle stepsBundle = new Bundle();
-        stepsBundle.putParcelableArrayList(DataUtilities.KEY_STEPS, steps);
-        stepsBundle.putInt(DataUtilities.KEY_STEP_ID, position);
-        stepsBundle.putBoolean(DataUtilities.KEY_IS_TWO_PANE, mIsTwoPane);
+            // Create a Bundle and put inside the List of Steps and the current position
+            Bundle stepsBundle = new Bundle();
+            stepsBundle.putParcelableArrayList(DataUtilities.KEY_STEPS, steps);
+            stepsBundle.putInt(DataUtilities.KEY_STEP_ID, position);
+            stepsBundle.putBoolean(DataUtilities.KEY_IS_TWO_PANE, mIsTwoPane);
 
-        // Set the arguments of the Fragment using the Bundle
-        mSingleStepFragment.setArguments(stepsBundle);
+            // Set the arguments of the Fragment using the Bundle
+            mSingleStepFragment.setArguments(stepsBundle);
 
-        // Associate the Fragment with the frame Layout
-        mFragmentManager.beginTransaction()
-                .replace(ID_SINGLE_FRAGMENT, mSingleStepFragment)
-                // Don't add the fragment to the back stash
-                .commit();
+            if (mIsTwoPane) {
+                // Associate the Fragment with the frame Layout
+                mFragmentManager.beginTransaction()
+                        .replace(ID_SINGLE_FRAGMENT, mSingleStepFragment)
+                        // Don't add to back stash
+                        .commit();
+            } else {
+                // Associate the Fragment with the frame Layout
+                mFragmentManager.beginTransaction()
+                        .replace(ID_SINGLE_FRAGMENT, mSingleStepFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+        }
     }
 
     /** Implementation of interface to enable click handling */
@@ -204,6 +232,7 @@ public class DetailActivity extends AppCompatActivity implements StepsFragment
         mPosition = position;
 
         if (mIsTwoPane) {
+            mIsSavedState = false;
             // Replace the step fragment with the one showing the step details
             setupStepFragment(steps, position);
         } else {

@@ -14,13 +14,13 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Utilities;
+package com.example.android.bakeit.utilities;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
-import com.example.android.bakeit.Data.Step;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.Step;
 
 import java.text.Normalizer;
 import java.util.ArrayList;

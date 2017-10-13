@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Adapters;
+package com.example.android.bakeit.ui.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -26,10 +26,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
-import com.example.android.bakeit.Data.Step;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.Step;
+import com.example.android.bakeit.utilities.DataUtilities;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,9 +43,13 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     /** Cursor with all the steps */
     private Cursor mCursor;
 
+    /** Context */
+    private Context mContext;
+
     /** Views used by the adapter */
     private TextView mShortDescriptionTextView;
     private ImageView mVideoImageView;
+    private ImageView mThumbImageView;
 
     /** Variable storing the previous clicked position */
     private int mOldPosition = -1;
@@ -53,8 +58,9 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
     private StepClickHandler mClickHandler;
 
     /** Constructor for the adapter */
-    public StepListAdapter(StepClickHandler clickHandler) {
+    public StepListAdapter(Context context, StepClickHandler clickHandler) {
         mClickHandler = clickHandler;
+        mContext = context;
     }
 
     /** Interface to enable click functionality to the recycler view */
@@ -83,15 +89,24 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
         // Get the columnIndexes
         int shortDescColumnIndex = mCursor.getColumnIndex(StepsEntry.COLUMN_SHORT_DESCRIPTION);
         int videoColumnIndex = mCursor.getColumnIndex(StepsEntry.COLUMN_VIDEO);
+        int thumbColumnIndex = mCursor.getColumnIndex(StepsEntry.COLUMN_THUMBNAIL);
 
         // Set the short description
         mShortDescriptionTextView.setText(mCursor.getString(shortDescColumnIndex));
 
         // If there is a video, show the indicator
         String videoURL = mCursor.getString(videoColumnIndex);
+        String thumbURL = mCursor.getString(thumbColumnIndex);
 
         if (videoURL != null && !TextUtils.isEmpty(videoURL)) {
             mVideoImageView.setVisibility(View.VISIBLE);
+        }
+
+        // Check if there is a thumbnail
+        if (thumbURL != null && !TextUtils.isEmpty(thumbURL)) {
+            mThumbImageView.setVisibility(View.VISIBLE);
+            // Use Picasso (http://square.github.io/picasso/) to set the image
+            Picasso.with(mContext).load(thumbURL).into(mThumbImageView);
         }
     }
 
@@ -129,6 +144,9 @@ public class StepListAdapter extends RecyclerView.Adapter<StepListAdapter.StepVi
 
             // Find the ImageView indicating the existence of a video
             mVideoImageView = (ImageView) itemView.findViewById(R.id.iv_step_list_video);
+
+            // find the ImageView for the thumbnail
+            mThumbImageView = (ImageView) itemView.findViewById(R.id.iv_step_list_thumb);
 
             // Set the OnClickListener to the view
             itemView.setOnClickListener(this);

@@ -13,7 +13,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,17 +24,17 @@
 
         <!-- Detail activity -->
         <activity
-            android:name=".UI.DetailActivity"
-            android:parentActivityName=".UI.MainActivity">
-
+            android:name=".ui.DetailActivity"
+            android:parentActivityName=".ui.MainActivity">
         </activity>
 
         <!-- Activity for a single step, not used in tablet mode -->
-        <activity android:name=".UI.PhoneStepActivity">
+        <activity
+            android:name=".ui.PhoneStepActivity">
         </activity>
 
         <!-- Widget Configuration Activity -->
-        <activity android:name=".UI.Widget.RecipeIngredientsWidgetConfigureActivity">
+        <activity android:name=".ui.widget.RecipeIngredientsWidgetConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
@@ -43,20 +43,20 @@
 
         <!-- Content Provider for the database -->
         <provider
-            android:name=".Data.RecipeProvider"
+            android:name=".data.RecipeProvider"
             android:authorities="com.example.android.bakeit"
             android:exported="true"/>
 
         <!-- Service used for syncing the data -->
-        <service android:name=".Sync.SyncService"/>
+        <service android:name=".sync.SyncService"/>
 
         <!-- Service for the widget -->
         <service
-            android:name=".UI.Widget.WidgetListService"
+            android:name=".ui.widget.WidgetListService"
             android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <!-- Receiver for the widget -->
-        <receiver android:name=".UI.Widget.RecipeIngredientsWidget">
+        <receiver android:name=".ui.widget.RecipeIngredientsWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>

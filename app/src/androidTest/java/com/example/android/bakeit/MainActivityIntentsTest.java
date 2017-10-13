@@ -6,8 +6,8 @@ import android.support.test.espresso.intent.matcher.IntentMatchers;
 import android.support.test.espresso.intent.rule.IntentsTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.bakeit.UI.MainActivity;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.ui.MainActivity;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 import org.hamcrest.Matchers;
 import org.junit.Rule;

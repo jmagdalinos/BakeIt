@@ -45,4 +45,5 @@
     <dimen name="appwidget_image_height">200dp</dimen>
     <dimen name="recipe_item_image_height">250dp</dimen>
     <dimen name="recipe_detail_image_height">300dp</dimen>
+    <dimen name="step_item_thumb_height">80dp</dimen>
 </resources>

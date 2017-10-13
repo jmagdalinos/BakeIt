@@ -30,6 +30,10 @@
 
     <!-- Fragment Titles -->
     <string name="servings_title">(for 8 servings)</string>
+    <string name="servings_for">for</string>
+    <string name="servings_servings">servings</string>
+    <string name="touch_to_hide">- touch to hide</string>
+    <string name="touch_to_show">- touch to show</string>
     <string name="ingredients_title">Ingredients:</string>
     <string name="steps_title">Recipe Steps</string>
     <string name="navigate_steps">Navigate Steps</string>

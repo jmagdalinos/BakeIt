@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Sync;
+package com.example.android.bakeit.sync;
 
 import android.app.IntentService;
 import android.content.Intent;

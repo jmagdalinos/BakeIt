@@ -5,7 +5,7 @@ import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.example.android.bakeit.UI.MainActivity;
+import com.example.android.bakeit.ui.MainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;

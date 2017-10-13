@@ -14,15 +14,15 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Data;
+package com.example.android.bakeit.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
 
 /**
  * Helper class that creates the database and its tables

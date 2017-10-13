@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Utilities;
+package com.example.android.bakeit.utilities;
 
 import android.content.ContentValues;
 

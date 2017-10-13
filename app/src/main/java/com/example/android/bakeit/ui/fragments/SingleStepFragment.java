@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Fragments;
+package com.example.android.bakeit.ui.fragments;
 
 import android.content.res.Configuration;
 import android.graphics.Typeface;
@@ -33,9 +33,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.Step;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.data.Step;
+import com.example.android.bakeit.utilities.DataUtilities;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -87,12 +87,14 @@ public class SingleStepFragment extends Fragment implements
     private int mScreenOrientation;
     private boolean mIsTwoPane;
     private static final DefaultBandwidthMeter BANDWIDTH_METER = new DefaultBandwidthMeter();
+    private long resumePosition;
 
     /** String for logging errors */
     private static final String LOG_TAG = SingleStepFragment.class.getSimpleName();
 
-    /** Resource ids for the two fragments */
+    /** Key for the saveInstanceState */
     private static final String STATE_CURRENT_POSITION = "current_position";
+    private static final String STATE_RESUME_POSITION = "resume_position";
 
     @Nullable
     @Override
@@ -127,6 +129,7 @@ public class SingleStepFragment extends Fragment implements
         } else {
             // Retrieve the current position from the saved instance
             mCurrentPosition = savedInstanceState.getInt(STATE_CURRENT_POSITION);
+            resumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
         }
 
         // If there is a step selected, continue with the setup
@@ -134,8 +137,7 @@ public class SingleStepFragment extends Fragment implements
             // Get the data from the ArrayList
             getStepData();
 
-            // Show all data
-            refreshView();
+            setupButtons();
 
             // Initialize Media session
             initializeMediaSession();
@@ -154,6 +156,8 @@ public class SingleStepFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putInt(STATE_CURRENT_POSITION, mCurrentPosition);
+        outState.putLong(STATE_RESUME_POSITION, resumePosition);
+
         super.onSaveInstanceState(outState);
     }
 
@@ -172,13 +176,43 @@ public class SingleStepFragment extends Fragment implements
                 });
     }
 
-    /** Release the ExoPlayer and deactivate the media session when the activity finishes */
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onResume() {
+        super.onResume();
+
+        // Show all data
+        setupPlayer();
+
+        // Initialize Media session
+        initializeMediaSession();
+
+    }
+
+    /** Release the ExoPlayer and deactivate the media session when the activity finishes and
+     * save its position */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
         // Show the toolbar
         getActivity().findViewById(R.id.appBar).setVisibility(View.VISIBLE);
+
+        updateResumePosition();
+
+        releasePlayer();
+        if (mMediaSession != null) mMediaSession.setActive(false);
+    }
+
+    /** Release the ExoPlayer and deactivate the media session when the activity pauses and
+     * save its position */
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Show the toolbar
+        getActivity().findViewById(R.id.appBar).setVisibility(View.VISIBLE);
+
+        updateResumePosition();
 
         releasePlayer();
         if (mMediaSession != null) mMediaSession.setActive(false);
@@ -197,7 +231,7 @@ public class SingleStepFragment extends Fragment implements
     }
 
     /** Displays all data */
-    private void refreshView() {
+    private void setupPlayer() {
         // If this is position 0, don't display the description as it is the same with the short one
         if (mCurrentPosition != 0) {
             // Set the description on the TextView
@@ -229,7 +263,9 @@ public class SingleStepFragment extends Fragment implements
             // Initialize player
             initializeExoPlayer();
         }
+    }
 
+    private void setupButtons() {
         // Check if the step is the first or last
         if (mCurrentPosition == 0) {
             // First step; disable navigation to previous step
@@ -324,6 +360,10 @@ public class SingleStepFragment extends Fragment implements
                     DefaultDataSourceFactory(getContext(), userAgent), new
                     DefaultExtractorsFactory(),null, null);
 
+            if (resumePosition != 0) {
+                mExoPlayer.seekTo(resumePosition);
+            }
+
             // Set the media source to the player
             mExoPlayer.prepare(mediaSource);
 
@@ -340,13 +380,21 @@ public class SingleStepFragment extends Fragment implements
         mExoPlayer = null;
     }
 
+    /** Saves the current playing position of the player */
+    private void updateResumePosition() {
+        if (mExoPlayer != null) {
+            resumePosition = Math.max(0, mExoPlayer.getCurrentPosition());
+        }
+    }
+
     /** Implemented to enable previous button clicking */
     @OnClick(R.id.iv_previous)
     public void goToPreviousStep() {
         mCurrentPosition--;
         releasePlayer();
         getStepData();
-        refreshView();
+        setupPlayer();
+        setupButtons();
     }
 
     /** Implemented to enable next button clicking */
@@ -355,7 +403,8 @@ public class SingleStepFragment extends Fragment implements
         mCurrentPosition++;
         releasePlayer();
         getStepData();
-        refreshView();
+        setupPlayer();
+        setupButtons();
     }
 
     /**
@@ -387,12 +436,12 @@ public class SingleStepFragment extends Fragment implements
     public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
         if (playbackState == ExoPlayer.STATE_READY && playWhenReady) {
             // The player is playing
-            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, mExoPlayer
-                    .getCurrentPosition(), 1f);
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, resumePosition, 1f);
+
         } else if (playbackState == ExoPlayer.STATE_READY) {
             // The player is paused
-            mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED, mExoPlayer
-                    .getCurrentPosition(), 1f);
+            mStateBuilder.setState(PlaybackStateCompat.STATE_PAUSED, resumePosition, 1f);
+
         }
 
         // Set the state on the session

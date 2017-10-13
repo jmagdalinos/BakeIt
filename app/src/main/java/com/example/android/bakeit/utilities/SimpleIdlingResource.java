@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.bakeit.Utilities;
+package com.example.android.bakeit.utilities;
 
 import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;

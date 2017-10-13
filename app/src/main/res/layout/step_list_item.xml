@@ -26,19 +26,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_step_list_thumb"
+            android:layout_width="@dimen/step_item_thumb_height"
+            android:layout_height="@dimen/step_item_thumb_height"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/padding_list_item_M"
+            android:layout_marginStart="@dimen/padding_list_item_M"/>
+
         <TextView
             style="@style/list_item_text"
             android:id="@+id/tv_step_list_short_desc"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_marginTop="@dimen/padding_list_item_M"
             android:layout_marginLeft="@dimen/padding_list_item_M"
             android:layout_marginRight="@dimen/padding_list_item_M"
             android:layout_marginBottom="@dimen/padding_list_item_M"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            tools:text="@string/placeholder_step_short_description"
+            app:layout_constraintLeft_toRightOf="@id/iv_step_list_thumb"
             app:layout_constraintRight_toLeftOf="@+id/iv_step_list_video"
-            app:layout_constraintHorizontal_bias="0.0"/>
+            tools:text="@string/placeholder_step_short_description"/>
 
         <ImageView
             android:id="@+id/iv_step_list_video"

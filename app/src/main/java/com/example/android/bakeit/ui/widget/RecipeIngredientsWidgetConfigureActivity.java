@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Widget;
+package com.example.android.bakeit.ui.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -30,9 +30,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.Adapters.RecipeListAdapter;
+import com.example.android.bakeit.ui.adapters.RecipeListAdapter;
 
 /**
  * The configuration screen for the {@link RecipeIngredientsWidget RecipeIngredientsWidget} AppWidget.

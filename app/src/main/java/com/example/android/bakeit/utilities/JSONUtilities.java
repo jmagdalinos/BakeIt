@@ -14,14 +14,14 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Utilities;
+package com.example.android.bakeit.utilities;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +33,7 @@ import java.util.ArrayList;
  * Utilities for parsing the JSON data
  */
 
-public class JSONUtilities {
+public final class JSONUtilities {
 
     /** Keys used to parse the JSON response */
     private static final String KEY_RECIPE_NAME = "name";
@@ -63,6 +63,8 @@ public class JSONUtilities {
             ".com/content/dam/images/food/fullset/2013/12/9/0/FNK_Cheesecake_s4x3.jpg.rend.hgtvcom.616.462.suffix/1387411272847.jpeg";
 
 
+    /** Empty class constructor */
+    private JSONUtilities() {}
     /** Returns an ArrayList with all the data */
     public static ArrayList<ArrayList<ContentValues>> getData(String jsonResponse) throws JSONException {
         // If the response is null (an error has occurred) exit early

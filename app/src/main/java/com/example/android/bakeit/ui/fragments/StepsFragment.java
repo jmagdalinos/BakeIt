@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Fragments;
+package com.example.android.bakeit.ui.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -35,11 +35,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
-import com.example.android.bakeit.Data.Step;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.Step;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.Adapters.StepListAdapter;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.ui.adapters.StepListAdapter;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 import java.util.ArrayList;
 
@@ -58,6 +58,8 @@ public class StepsFragment extends Fragment implements
     @BindView(R.id.tv_fragment_list_title_bottom) TextView mStepsTextView;
     private StepListAdapter mStepsListAdapter;
     private String mRecipeName;
+    private Cursor mCursor;
+    private Boolean mIsTwoPane;
 
     /** Keys for the saveInstanceState */
     private static final String STATE_STEPS_LAYOUT_MANAGER = "steps_layout_manager";
@@ -114,6 +116,7 @@ public class StepsFragment extends Fragment implements
 
         // Get the current recipe name
         mRecipeName = bundle.getString(DataUtilities.KEY_RECIPE_NAME);
+        mIsTwoPane = bundle.getBoolean(DataUtilities.KEY_IS_TWO_PANE);
 
 
         // Set the text in the TextView
@@ -137,7 +140,7 @@ public class StepsFragment extends Fragment implements
         }
 
         // Create a new IngredientListAdapter and a new StepListAdapter
-        mStepsListAdapter = new StepListAdapter(this);
+        mStepsListAdapter = new StepListAdapter(getContext(), this);
 
         // Create a new instance of both adapters and set them to the RecyclerViews
         mStepsRecyclerView.setAdapter(mStepsListAdapter);
@@ -173,12 +176,12 @@ public class StepsFragment extends Fragment implements
     /** Highlights the currently selected step and un-highlights the previous one */
     private void highlightStep(int newPosition, int oldPosition) {
         // Check if the user clicked the same item as before
-        if (newPosition != oldPosition) {
+        if (newPosition != oldPosition && mIsTwoPane) {
             // Highlight the item
             mStepsRecyclerView.findViewHolderForAdapterPosition(newPosition).itemView.setSelected
                     (true);
             // Check if the old position is -1, meaning a first run
-            if (oldPosition != -1) {
+            if (oldPosition != -1 && mCursor.getCount() != 0 && mCursor != null) {
                 // Remove highlight from the previous item
                 mStepsRecyclerView.findViewHolderForAdapterPosition(oldPosition).itemView.setSelected(false);
             }
@@ -214,6 +217,7 @@ public class StepsFragment extends Fragment implements
                 if (data != null && data.getCount() != 0) {
                     // Pass the cursor to the adapter
                     mStepsListAdapter.swapCursor(data);
+                    mCursor = data;
                 }
                 break;
             default:

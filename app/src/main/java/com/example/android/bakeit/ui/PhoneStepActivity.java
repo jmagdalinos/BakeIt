@@ -14,19 +14,20 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI;
+package com.example.android.bakeit.ui;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.Step;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.Fragments.SingleStepFragment;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.data.Step;
+import com.example.android.bakeit.ui.fragments.SingleStepFragment;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 import java.util.ArrayList;
 
@@ -56,6 +57,10 @@ public class PhoneStepActivity extends AppCompatActivity {
         // Get the toolbar and its TextView
         Toolbar toolbar = (Toolbar) findViewById(R.id.appBar);
         TextView textView = (TextView) toolbar.findViewById(R.id.tv_toolbar);
+        // Setup back navigation
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Set the text and typeface of the toolbar
         textView.setText(recipeName);
         textView.setTypeface(mFont);
@@ -79,13 +84,13 @@ public class PhoneStepActivity extends AppCompatActivity {
 
             // Set the arguments of the Fragment using the Bundle
             mSingleStepFragment.setArguments(stepsBundle);
-        }
 
-        // Associate the Fragment with the frame Layout
-        mFragmentManager.beginTransaction()
-                .replace(R.id.fl_fragment_main, mSingleStepFragment)
-                // Don't add the fragment to the back stash
-                .commit();
+            // Associate the Fragment with the frame Layout
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fl_fragment_main, mSingleStepFragment)
+                    // Don't add the fragment to the back stash
+                    .commit();
+        }
     }
 
     /** Save an instance of the current fragment */
@@ -95,5 +100,17 @@ public class PhoneStepActivity extends AppCompatActivity {
 
         // Save the fragment instance
         mFragmentManager.putFragment(outState, DataUtilities.KEY_FRAGMENT, mSingleStepFragment);
+    }
+
+    /** Setup action bar back button navigation */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

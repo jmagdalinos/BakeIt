@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI;
+package com.example.android.bakeit.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -37,12 +37,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.Sync.SyncService;
-import com.example.android.bakeit.UI.Adapters.RecipeListAdapter;
-import com.example.android.bakeit.Utilities.DataUtilities;
-import com.example.android.bakeit.Utilities.SimpleIdlingResource;
+import com.example.android.bakeit.sync.SyncService;
+import com.example.android.bakeit.ui.adapters.RecipeListAdapter;
+import com.example.android.bakeit.utilities.DataUtilities;
+import com.example.android.bakeit.utilities.SimpleIdlingResource;
 
 
 /**

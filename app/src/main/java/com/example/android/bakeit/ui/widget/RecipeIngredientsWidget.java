@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Widget;
+package com.example.android.bakeit.ui.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -25,8 +25,8 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.UI.DetailActivity;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.ui.DetailActivity;
+import com.example.android.bakeit.utilities.DataUtilities;
 import com.squareup.picasso.Picasso;
 
 /**

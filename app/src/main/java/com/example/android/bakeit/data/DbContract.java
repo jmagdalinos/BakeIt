@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Data;
+package com.example.android.bakeit.data;
 
 import android.content.ContentResolver;
 import android.net.Uri;

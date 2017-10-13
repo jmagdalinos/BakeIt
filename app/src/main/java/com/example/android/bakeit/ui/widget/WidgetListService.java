@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.UI.Widget;
+package com.example.android.bakeit.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,9 +23,9 @@ import android.net.Uri;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
 import com.example.android.bakeit.R;
-import com.example.android.bakeit.Utilities.DataUtilities;
+import com.example.android.bakeit.utilities.DataUtilities;
 
 /**
  * Used to populate the ListView of a widget with a list of ingredients

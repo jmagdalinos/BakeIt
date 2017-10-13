@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.android.bakeit.Data;
+package com.example.android.bakeit.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -26,9 +26,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.example.android.bakeit.Data.DbContract.IngredientsEntry;
-import com.example.android.bakeit.Data.DbContract.RecipesEntry;
-import com.example.android.bakeit.Data.DbContract.StepsEntry;
+import com.example.android.bakeit.data.DbContract.IngredientsEntry;
+import com.example.android.bakeit.data.DbContract.RecipesEntry;
+import com.example.android.bakeit.data.DbContract.StepsEntry;
 
 /**
  * Content provider used to access the database
